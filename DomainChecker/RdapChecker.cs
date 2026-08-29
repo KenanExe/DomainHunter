@@ -14,7 +14,7 @@ namespace DomainChecker
         private static HttpClient CreateClient()
         {
             var c = new HttpClient();
-            c.DefaultRequestHeaders.Add("User-Agent", "kenanexe.xyz/DomainChecker");
+            c.DefaultRequestHeaders.Add("User-Agent", "Kenan.bio/DomainChecker");
             c.DefaultRequestHeaders.Add("Accept", "application/rdap+json, application/json");
             return c;
         }

@@ -27,6 +27,7 @@ namespace DomainChecker
             dataResults.Columns[1].Width = 80;
 
             btnRefrash.PerformClick();
+            AutoSpeed = AutoSpeedCheckBox.Checked;
         }
         static int speed = 1000;
         static bool AutoSpeed = false;
@@ -424,7 +425,7 @@ namespace DomainChecker
         }
         #endregion
 
-        private static void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             AutoSpeed = AutoSpeedCheckBox.Checked;
         }

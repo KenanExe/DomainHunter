@@ -22,7 +22,6 @@ namespace DomainChecker
         [STAThread]
         static void Main()
         {
-            AllocConsole();
 
             IntPtr consoleHandle = GetConsoleWindow();
             if (consoleHandle != IntPtr.Zero)

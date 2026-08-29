@@ -49,8 +49,8 @@ namespace DomainChecker
                         time = 10;
                     }
                 }
-                LoggingService.Log($"Next check in {time} ms");
-                LoggingService.Log($"Rdap check time: {RdapTime.ElapsedMilliseconds} ms");
+                //LoggingService.Log($"Next check in {time} ms");
+                //LoggingService.Log($"Rdap check time: {RdapTime.ElapsedMilliseconds} ms");
                 await Task.Delay(time);
             }
             DataResultsUpDate();
@@ -126,6 +126,7 @@ namespace DomainChecker
         static async Task<int> CheckDomainAsync(string domain)
         {
             //I did but .io needs whois check. Rdap doesn't show .io TLD's
+            //ToDo: add other rdap services for .io, .ai and others
             return await RdapChecker.CheckDomainAsync(domain); // Add whois for .io TLD's and i think .gov too
         }
     }

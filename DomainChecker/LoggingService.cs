@@ -9,9 +9,12 @@ namespace DomainChecker
         /*
          * First version of log system.
          * Will be updated in the future with more features and better design.
+         * V1.1
         */
+        // Win32 API Imports
+        [DllImport("kernel32.dll")]
+        private static extern bool AllocConsole();
 
-        // Win32 API Importları
         [DllImport("kernel32.dll")]
         private static extern IntPtr GetConsoleWindow();
 
@@ -20,7 +23,6 @@ namespace DomainChecker
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
-
         private const int SW_RESTORE = 9;
 
         static ConsoleColor WarnColor = ConsoleColor.Red;
@@ -34,11 +36,18 @@ namespace DomainChecker
                 ShowWindow(consoleHandle, SW_RESTORE);
                 SetForegroundWindow(consoleHandle);
             }
+            else
+            {
+                AllocConsole();
+                consoleHandle = GetConsoleWindow();
+                ShowWindow(consoleHandle, SW_RESTORE);
+                SetForegroundWindow(consoleHandle);
+            }
 
             StackTrace stackTrace = new StackTrace();
 
             var CallerFrame = stackTrace.GetFrame(1);
-            var Method = CallerFrame?.GetMethod(); // null check eklendi
+            var Method = CallerFrame?.GetMethod();
 
             var Header = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Log Entry: ";
             var Body = Method != null ? $"{Method.DeclaringType?.Name}.{Method.Name} " : "Unknown.Method ";
