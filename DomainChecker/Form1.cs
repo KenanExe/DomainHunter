@@ -109,6 +109,7 @@ namespace DomainChecker
                 goLight();
             }
         }
+        //ToDo: Optimize the dark theme.
         private void goDark()
         {
             this.BackColor = Color.FromArgb(60, 60, 60);
