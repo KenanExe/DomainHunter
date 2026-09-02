@@ -1,5 +1,7 @@
+using DomainHunter;
 using System.Configuration;
 using System.Data.SQLite;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
@@ -101,17 +103,17 @@ namespace DomainChecker
             if (theme == false)
             {
                 theme = true;
-                goDark();
+                goDark(sender, e);
             }
             else if (theme)
             {
                 theme = false;
-                goLight();
+                goLight(sender, e);
             }
         }
-        //ToDo: Optimize the dark theme.
-        private void goDark()
+        private void goDark(object sender, EventArgs e)
         {
+            
             this.BackColor = Color.FromArgb(60, 60, 60);
             this.ForeColor = Color.White;
             label1.ForeColor = Color.White;
@@ -122,26 +124,37 @@ namespace DomainChecker
             btnThema.BackColor = Color.FromArgb(255, 60, 60, 60);
             SpeedScrol.BackColor = Color.FromArgb(60, 60, 60);
             btnThema.Text = "Change Light Mode";
+            
             groupBox1.ForeColor = Color.White;
             groupBox2.ForeColor = Color.White;
             groupBox3.ForeColor = Color.White;
             groupBox4.ForeColor = Color.White;
-
             textBox1.BackColor = Color.FromArgb(60, 60, 60);
             textBox1.ForeColor = Color.White;
+            statusStrip1.BackColor = Color.FromArgb(60, 60, 60);
+            statusStrip1.ForeColor = Color.White;
+            btnRefrash.ForeColor = Color.FromArgb(255, 109, 109, 109);
+            btnRefrash.BackColor = Color.FromArgb(255, 60, 60, 60);
+            ExportBtn.ForeColor = Color.FromArgb(255, 109, 109, 109);
+            ExportBtn.BackColor = Color.FromArgb(255, 60, 60, 60);
 
+
+            DarkModeHelper.SetTitleBarDark(this.Handle, true);
+
+            ApplyDataGridViewTheme(dataResults, true);
+            ApplyDataGridViewTheme(dataQueue, true);
         }
-        private void goLight()
+        private void goLight(object sender, EventArgs e)
         {
-            this.BackColor = Color.White;
+            this.BackColor = Color.FromKnownColor(KnownColor.Control);
             this.ForeColor = Color.Black;
             label1.ForeColor = Color.Black;
             label2.ForeColor = Color.Black;
             label3.ForeColor = Color.Black;
             lblSpeed.ForeColor = Color.Black;
             btnThema.ForeColor = Color.FromArgb(255, 109, 109, 109);
-            btnThema.BackColor = Color.FromArgb(255, 255, 255, 255);
-            SpeedScrol.BackColor = Color.FromArgb(255, 255, 255, 255);
+            btnThema.BackColor = Color.FromKnownColor(KnownColor.Control);
+            SpeedScrol.BackColor = Color.FromKnownColor(KnownColor.Control);
             btnThema.Text = "Change Dark Mode";
             groupBox1.ForeColor = Color.Black;
             groupBox2.ForeColor = Color.Black;
@@ -149,7 +162,47 @@ namespace DomainChecker
             groupBox4.ForeColor = Color.Black;
             textBox1.BackColor = Color.WhiteSmoke;
             textBox1.ForeColor = Color.Black;
+            statusStrip1.BackColor = Color.FromKnownColor(KnownColor.Control);
+            statusStrip1.ForeColor = Color.Black;
+            btnRefrash.ForeColor = Color.FromArgb(255, 109, 109, 109);
+            btnRefrash.BackColor = Color.FromArgb(255, 255, 255, 255);
+            ExportBtn.ForeColor = Color.FromArgb(255, 109, 109, 109);
+            ExportBtn.BackColor = Color.FromArgb(255, 255, 255, 255);
+
+            DarkModeHelper.SetTitleBarDark(this.Handle, false);
+            ApplyDataGridViewTheme(dataResults, false);
+            ApplyDataGridViewTheme(dataQueue, false);
+
         }
+
+        private void ApplyDataGridViewTheme(DataGridView grid, bool isDark)
+        {
+            grid.EnableHeadersVisualStyles = !isDark;
+            grid.BorderStyle = isDark ? BorderStyle.FixedSingle : BorderStyle.Fixed3D;
+            grid.BackgroundColor = isDark ? Color.FromArgb(60, 60, 60) : Color.White;
+            grid.GridColor = isDark ? Color.FromArgb(90, 90, 90) : Color.FromArgb(220, 220, 220);
+
+            Color bg = isDark ? Color.FromArgb(45, 45, 45) : Color.White;
+            Color fg = isDark ? Color.White : Color.Black;
+            Color altBg = isDark ? Color.FromArgb(55, 55, 55) : Color.WhiteSmoke;
+            Color headerBg = isDark ? Color.FromArgb(40, 40, 40) : SystemColors.Control;
+            Color selectBg = Color.FromArgb(0, 120, 215);
+
+            SetStyle(grid.DefaultCellStyle, bg, fg, selectBg, Color.White);
+            SetStyle(grid.AlternatingRowsDefaultCellStyle, altBg, fg, selectBg, Color.White);
+            SetStyle(grid.ColumnHeadersDefaultCellStyle, headerBg, fg, headerBg, fg);
+            SetStyle(grid.RowHeadersDefaultCellStyle, bg, fg, selectBg, Color.White);
+
+            void SetStyle(DataGridViewCellStyle style, Color back, Color fore, Color selBack, Color selFore)
+            {
+                style.BackColor = back;
+                style.ForeColor = fore;
+                style.SelectionBackColor = selBack;
+                style.SelectionForeColor = selFore;
+            }
+        }
+
+
 
         private async void btnStart_Click(object sender, EventArgs e)
         {

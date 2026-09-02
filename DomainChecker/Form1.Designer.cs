@@ -326,6 +326,7 @@
             // 
             // btnRefrash
             // 
+            btnRefrash.FlatStyle = FlatStyle.Flat;
             btnRefrash.Location = new Point(935, 12);
             btnRefrash.Name = "btnRefrash";
             btnRefrash.Size = new Size(94, 29);
@@ -352,6 +353,7 @@
             // 
             // ExportBtn
             // 
+            ExportBtn.FlatStyle = FlatStyle.Flat;
             ExportBtn.Location = new Point(810, 12);
             ExportBtn.Name = "ExportBtn";
             ExportBtn.Size = new Size(119, 29);
@@ -364,6 +366,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(1039, 537);
             Controls.Add(ExportBtn);
             Controls.Add(statusStrip1);
