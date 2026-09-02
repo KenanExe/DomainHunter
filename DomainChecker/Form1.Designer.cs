@@ -215,7 +215,7 @@
             label1.Name = "label1";
             label1.Size = new Size(175, 23);
             label1.TabIndex = 1;
-            label1.Text = "Domain Hunter V0.1";
+            label1.Text = "Domain Hunter V1.0";
             // 
             // btnStart
             // 
@@ -377,7 +377,7 @@
             Controls.Add(groupBox1);
             Controls.Add(label1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Domain Hunter";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
