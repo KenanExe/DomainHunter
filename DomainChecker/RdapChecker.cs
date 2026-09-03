@@ -14,7 +14,7 @@ namespace DomainChecker
         private static HttpClient CreateClient()
         {
             var c = new HttpClient();
-            c.DefaultRequestHeaders.Add("User-Agent", "Kenan.bio/DomainChecker");
+            c.DefaultRequestHeaders.Add("User-Agent", "Kenan.bio/DomainHunter");
             c.DefaultRequestHeaders.Add("Accept", "application/rdap+json, application/json");
             return c;
         }
@@ -23,7 +23,41 @@ namespace DomainChecker
         {
             try
             {
-                var response = await client.GetAsync($"https://rdap.org/domain/{domain}");
+                string url;
+                string tld = domain.Split('.').Last().ToLower();
+
+                if (tld == "io") // .io
+                {
+                    url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
+                }
+                else if (tld == "ai") // .ai
+                {
+                    url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
+                }
+                else if (tld == "com") // .com
+                {
+                    url = $"https://rdap.verisign.com/com/v1/domain/{domain}";
+                }
+                else if (tld == "net") // .net
+                {
+                    url = $"https://rdap.verisign.com/net/v1/domain/{domain}";
+                }
+                else if (tld == "org") // .org
+                {
+                    //url = $"https://rdap.publicinterestregistry.org/rdap/domain/{domain}"; rate limit to much
+                    url = $"https://rdap.org/domain/{domain}";
+                }
+                else if (tld == "gov") // .gov
+                {
+                    //url = $"https://rdap.nic.gov/rdap/domain/{domain}"; rate limit to much
+                    url = $"https://rdap.org/domain/{domain}";
+                }
+                else // others
+                {
+                    url = $"https://rdap.org/domain/{domain}";
+                }
+
+                var response = await client.GetAsync(url);
                 return (int)response.StatusCode;
             }
             catch (Exception ex)

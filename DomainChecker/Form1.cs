@@ -209,12 +209,11 @@ namespace DomainChecker
             string text = textBox1.Text;
             string[] lines = text.Split(new[] { "\r\n", "\r", "\n", " ", "," }, StringSplitOptions.None);
             int i = 0;
-            progressBar.Value = 0;
+            progressBarUpDate(true);
             foreach (string line in lines)
             {
                 if (!string.IsNullOrWhiteSpace(line))
                 {
-                    i++;
                     //LoggingService.Log(line);
                     //SqlAddQueue.AddQueue(line);
                     AutoAddTDLs(line);
@@ -227,7 +226,6 @@ namespace DomainChecker
                     LoggingService.Log("Empty line detected, skipping.");
                 }
             }
-            progressBar.Maximum = i;
             //LoggingService.Log(progressBar.Maximum.ToString());
             //LoggingService.Log(i.ToString());
 
@@ -237,6 +235,24 @@ namespace DomainChecker
             {
                 btnStart.Enabled = true;
             }
+        }
+        public static void progressBarUpDate(bool reset = false)
+        {
+            if (reset == true)
+            {
+                progressBar.Value = 0;
+                progressBar.Maximum = 0;
+                StatusBarUpDate(0, 0);
+            }
+            else
+            {
+                progressBar.Value = progressBar.Value + 1;
+                StatusBarUpDate(progressBar.Value, progressBar.Maximum);
+            }
+        }
+        public static void ProgressBarSetMax(int max)
+        {
+            progressBar.Maximum = max;
         }
 
         private void checkCom_CheckedChanged(object sender, EventArgs e)
@@ -261,28 +277,14 @@ namespace DomainChecker
                             m_dbConnection.Open();
                             using (SQLiteDataReader reader = command.ExecuteReader())
                             {
-                                int count = 0;
                                 while (reader.Read())
                                 {
-                                    count++;
                                     DataResultsAdd(
                                         reader["name"].ToString(),
                                         (bool)reader["status"]
                                     );
                                 }
-
-                                if (progressBar.InvokeRequired)
-                                {
-                                    progressBar.Invoke(new Action(() =>
-                                        progressBar.Value = Math.Min(count, progressBar.Maximum)));
-                                    StatusBarUpDate(count, progressBar.Maximum);
-                                }
-                                else
-                                {
-                                    progressBar.Value = Math.Min(count, progressBar.Maximum);
-                                    StatusBarUpDate(count, progressBar.Maximum);
-                                }
-                                ExportBtn.Enabled = count > 0;
+                                ExportBtn.Enabled = true;
                             }
                         }
                     }
@@ -384,7 +386,6 @@ namespace DomainChecker
         void AutoAddTDLs(string name)
         {
             int lastDot = name.LastIndexOf('.');
-
             if (lastDot != -1)
             {
                 SqlAddQueue.AddQueue(name);
@@ -426,58 +427,9 @@ namespace DomainChecker
         private void ExportBtn_Click(object sender, EventArgs e)
         {
             ExportBtn.Enabled = false;
-            SqlExportToCsv();
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Title = "Select Save Location";
-                saveFileDialog.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
-                saveFileDialog.DefaultExt = "csv";
-                saveFileDialog.FileName = "Domains check result";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string Path = saveFileDialog.FileName;
-
-                    CsvService.MoveCsv(Path);
-                }
-            }
+            ExportService.ExportCsv();
             ExportBtn.Enabled = true;
         }
-        #region SqlExport Services
-
-        public static void SqlExportToCsv()
-        {
-            string dbPath = ConfigurationManager.AppSettings["DbPath"];
-            try
-            {
-                using (SQLiteConnection m_dbConnection = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
-                {
-                    try
-                    {
-                        string Request = @"SELECT * FROM TblResults";
-                        using (SQLiteCommand command = new SQLiteCommand(Request, m_dbConnection))
-                        {
-                            m_dbConnection.Open();
-                            using (SQLiteDataReader reader = command.ExecuteReader())
-                            {
-                                while (reader.Read())
-                                {
-                                    CsvService.AddCsv(reader["name"].ToString(), (bool)reader["status"]);
-                                }
-                            }
-                        }
-                    }
-                    catch (SQLiteException ex)
-                    {
-                        LoggingService.Log($"DB Error: {ex.Message}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LoggingService.Log($"System Error: {ex.Message}");
-            }
-        }
-        #endregion
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

@@ -235,6 +235,7 @@
             // 
             progressBar.BackColor = SystemColors.Control;
             progressBar.Location = new Point(11, 405);
+            progressBar.MarqueeAnimationSpeed = 0;
             progressBar.Name = "progressBar";
             progressBar.Size = new Size(246, 29);
             progressBar.TabIndex = 3;
