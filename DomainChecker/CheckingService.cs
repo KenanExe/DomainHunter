@@ -48,7 +48,6 @@ namespace DomainChecker
                     time = 10000;
                 }
                 progressBarUpDate();
-                DataResultsUpDate();
                 DataQueueUpDate();
                 if (autoSpeed)
                 {
@@ -121,7 +120,7 @@ namespace DomainChecker
                     if (isSuccess == 200)
                     {
                         SqlResults.AddResults(itemName, false);
-
+                        DataResultsAdd(itemName, false);
                         string deleteSql = "DELETE FROM TblQueue WHERE Name = @Name;";
                         using (SQLiteCommand deleteCmd = new SQLiteCommand(deleteSql, connection))
                         {
@@ -134,6 +133,7 @@ namespace DomainChecker
                     else if (isSuccess == 404)
                     {
                         SqlResults.AddResults(itemName, true);
+                        DataResultsAdd(itemName, true);
                         string deleteSql = "DELETE FROM TblQueue WHERE Name = @Name;";
                         using (SQLiteCommand deleteCmd = new SQLiteCommand(deleteSql, connection))
                         {

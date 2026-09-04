@@ -179,7 +179,7 @@ namespace DomainChecker
         {
             grid.EnableHeadersVisualStyles = !isDark;
             grid.BorderStyle = isDark ? BorderStyle.FixedSingle : BorderStyle.Fixed3D;
-            grid.BackgroundColor = isDark ? Color.FromArgb(60, 60, 60) : Color.White;
+            grid.BackgroundColor = isDark ? Color.FromArgb(60, 60, 60) : Color.Gray;
             grid.GridColor = isDark ? Color.FromArgb(90, 90, 90) : Color.FromArgb(220, 220, 220);
 
             Color bg = isDark ? Color.FromArgb(45, 45, 45) : Color.White;
@@ -189,7 +189,7 @@ namespace DomainChecker
             Color selectBg = Color.FromArgb(0, 120, 215);
 
             SetStyle(grid.DefaultCellStyle, bg, fg, selectBg, Color.White);
-            SetStyle(grid.AlternatingRowsDefaultCellStyle, altBg, fg, selectBg, Color.White);
+            SetStyle(grid.AlternatingRowsDefaultCellStyle, altBg, fg, selectBg, Color.FromKnownColor(KnownColor.Control));
             SetStyle(grid.ColumnHeadersDefaultCellStyle, headerBg, fg, headerBg, fg);
             SetStyle(grid.RowHeadersDefaultCellStyle, bg, fg, selectBg, Color.White);
 
