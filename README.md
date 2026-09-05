@@ -22,6 +22,7 @@ Import your bulk domain list into the app and instantly find out domain availabi
 - **Duplicate Protection:** Before adding a domain, it checks both the current queue and existing results — so the same domain never gets queued or queried twice.
 
 ## 🖼️ Screenshot
+<img width="1037" height="572" alt="resim" src="https://github.com/user-attachments/assets/24a31fd7-8516-4149-8a5d-0cee3d97e6fe" />
 
 ## 🛠️ Installation & Usage
 
