@@ -54,6 +54,9 @@
             statusStrip1 = new StatusStrip();
             AltBarStatus = new ToolStripStatusLabel();
             ExportBtn = new Button();
+            checkApp = new CheckBox();
+            checkDev = new CheckBox();
+            checkCo = new CheckBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)SpeedScrol).BeginInit();
             groupBox2.SuspendLayout();
@@ -66,6 +69,9 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(checkApp);
+            groupBox1.Controls.Add(checkDev);
+            groupBox1.Controls.Add(checkCo);
             groupBox1.Controls.Add(AutoSpeedCheckBox);
             groupBox1.Controls.Add(lblSpeed);
             groupBox1.Controls.Add(SpeedScrol);
@@ -134,7 +140,7 @@
             // 
             checkAi.AutoSize = true;
             checkAi.Font = new Font("Segoe UI", 9F);
-            checkAi.Location = new Point(79, 122);
+            checkAi.Location = new Point(89, 122);
             checkAi.Name = "checkAi";
             checkAi.Size = new Size(46, 24);
             checkAi.TabIndex = 7;
@@ -155,7 +161,7 @@
             // 
             checkio.AutoSize = true;
             checkio.Font = new Font("Segoe UI", 9F);
-            checkio.Location = new Point(79, 91);
+            checkio.Location = new Point(89, 91);
             checkio.Name = "checkio";
             checkio.Size = new Size(47, 24);
             checkio.TabIndex = 6;
@@ -178,7 +184,7 @@
             // 
             checkGov.AutoSize = true;
             checkGov.Font = new Font("Segoe UI", 9F);
-            checkGov.Location = new Point(79, 60);
+            checkGov.Location = new Point(89, 60);
             checkGov.Name = "checkGov";
             checkGov.Size = new Size(59, 24);
             checkGov.TabIndex = 5;
@@ -363,6 +369,39 @@
             ExportBtn.UseVisualStyleBackColor = true;
             ExportBtn.Click += ExportBtn_Click;
             // 
+            // checkApp
+            // 
+            checkApp.AutoSize = true;
+            checkApp.Font = new Font("Segoe UI", 9F);
+            checkApp.Location = new Point(180, 122);
+            checkApp.Name = "checkApp";
+            checkApp.Size = new Size(60, 24);
+            checkApp.TabIndex = 14;
+            checkApp.Text = ".app";
+            checkApp.UseVisualStyleBackColor = true;
+            // 
+            // checkDev
+            // 
+            checkDev.AutoSize = true;
+            checkDev.Font = new Font("Segoe UI", 9F);
+            checkDev.Location = new Point(180, 91);
+            checkDev.Name = "checkDev";
+            checkDev.Size = new Size(58, 24);
+            checkDev.TabIndex = 13;
+            checkDev.Text = ".dev";
+            checkDev.UseVisualStyleBackColor = true;
+            // 
+            // checkCo
+            // 
+            checkCo.AutoSize = true;
+            checkCo.Font = new Font("Segoe UI", 9F);
+            checkCo.Location = new Point(180, 60);
+            checkCo.Name = "checkCo";
+            checkCo.Size = new Size(50, 24);
+            checkCo.TabIndex = 12;
+            checkCo.Text = ".co";
+            checkCo.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -421,6 +460,9 @@
         private Button btnRefrash;
         private StatusStrip statusStrip1;
         private CheckBox AutoSpeedCheckBox;
+        private CheckBox checkApp;
+        private CheckBox checkDev;
+        private CheckBox checkCo;
         public static Button ExportBtn;
         private static ToolStripStatusLabel AltBarStatus;
         public static ProgressBar progressBar;

@@ -64,7 +64,7 @@ namespace DomainChecker
                 }
 
                 //LoggingService.Log($"Next check in {time} ms");
-                LoggingService.Log($"Rdap check time: {RdapTime.ElapsedMilliseconds} ms");
+                //LoggingService.Log($"Rdap check time: {RdapTime.ElapsedMilliseconds} ms");
                 await Task.Delay(time);
             }
             DataResultsUpDate();

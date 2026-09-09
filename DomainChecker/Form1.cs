@@ -416,6 +416,18 @@ namespace DomainChecker
             {
                 SqlAddQueue.AddQueue(name + ".ai");
             }
+            if (checkCo.Checked)
+            {
+                SqlAddQueue.AddQueue(name + ".co");
+            }
+            if (checkDev.Checked)
+            {
+                SqlAddQueue.AddQueue(name + ".dev");
+            }
+            if (checkApp.Checked)
+            {
+                SqlAddQueue.AddQueue(name + ".app");
+            }
         }
         // Alt bar (status bar)
         private static void StatusBarUpDate(int queueCount, int resultsCount)
