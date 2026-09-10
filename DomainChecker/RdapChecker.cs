@@ -30,6 +30,10 @@ namespace DomainChecker
                 {
                     url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
                 }
+                else if (tld == "dev" || tld == "app") // .dev and .app
+                {
+                    url = $"https://pubapi.registry.google/rdap/domain/{domain}";
+                }
                 else if (tld == "ai") // .ai
                 {
                     url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
