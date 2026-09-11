@@ -34,6 +34,15 @@ namespace DomainChecker
                 {
                     url = $"https://pubapi.registry.google/rdap/domain/{domain}";
                 }
+                else if (tld == "xyz") // .xyz
+                {
+                    url = $"https://rdap.centralnic.com/xyz/domain/{domain}";
+                }
+                else if (tld == "info") // .info
+                {
+                    url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
+                }
+
                 else if (tld == "ai") // .ai
                 {
                     url = $"https://rdap.identitydigital.services/rdap/domain/{domain}";
